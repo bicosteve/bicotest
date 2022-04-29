@@ -3,6 +3,7 @@ const fs = require("fs");
 const express = require("express");
 
 const app = express();
+const port = 5000;
 
 let customers = [];
 
@@ -49,7 +50,54 @@ app.get("/deposits", (req, res) => {
   return res.send(deposits);
 });
 
-const port = 5000;
+//GETTING FAILED DEPOSIT WITH PHONE NUMBERS AND TRANSACTION CODE
+app.get("/withdrawals/number/:number", (req, res) => {
+  const number = req.params.number;
+
+  const user = customers.find((customer) => customer.phoneNumber === number);
+
+  if (!user) {
+    return res.send({ msg: "User not found" });
+  }
+
+  return res.send(user);
+});
+
+app.get("/withdrawals/code/:code", (req, res) => {
+  const code = req.params.code;
+
+  const user = customers.find((customer) => customer.code === code);
+
+  if (!user) {
+    return res.send({ msg: "User not found" });
+  }
+
+  return res.send(user);
+});
+
+app.get("/deposits/number/:number", (req, res) => {
+  const number = req.params.number;
+
+  const user = customers.find((customer) => customer.phoneNumber === number);
+
+  if (!user) {
+    return res.send({ msg: "User not found" });
+  }
+
+  return res.send(user);
+});
+
+app.get("/deposits/code/:code", (req, res) => {
+  const code = req.params.code;
+
+  const user = customers.find((customer) => customer.code === code);
+
+  if (!user) {
+    return res.send({ msg: "User not found" });
+  }
+
+  return res.send(user);
+});
 
 app.listen(port, () => {
   console.log(`Listening to ${port}...`);
