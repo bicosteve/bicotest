@@ -2,6 +2,8 @@ const express = require("express");
 
 const route = express();
 
+// THIS ROUTER IS FOR ALL FAILED DEPOSIT TRANSACTIONS
+
 const getCustomers = require("../src/datafunction");
 const customers = getCustomers();
 
@@ -12,7 +14,10 @@ route.get("/deposits", (req, res) => {
       deposits.push(customer);
     }
   }
-  return res.send(deposits);
+  return res.send({
+    msg: `There are ${deposits.length} failed deposit transactions`,
+    data: deposits,
+  });
 });
 
 route.get("/deposits/number/:number", (req, res) => {
