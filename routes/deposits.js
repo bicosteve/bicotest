@@ -8,6 +8,7 @@ const getCustomers = require("../src/datafunction");
 const customers = getCustomers();
 
 route.get("/deposits", (req, res) => {
+  //filter all the failed deposit and push then into an array
   let deposits = [];
   for (customer of customers) {
     if (customer.transactionType === "deposit" && !customer.completed) {
@@ -20,6 +21,7 @@ route.get("/deposits", (req, res) => {
   });
 });
 
+//GET SPECIFIC FAILED DEPOSIT WITH PHONE NUMBER
 route.get("/deposits/number/:number", (req, res) => {
   const number = req.params.number;
 
@@ -32,6 +34,7 @@ route.get("/deposits/number/:number", (req, res) => {
   return res.send(user);
 });
 
+//GET SPECIFIC FAILED DEPOSIT WITH TRANSACTION CODE
 route.get("/deposits/code/:code", (req, res) => {
   const code = req.params.code;
 
