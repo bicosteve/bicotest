@@ -38,13 +38,13 @@ route.get("/deposits/number/:number", (req, res) => {
 route.get("/deposits/code/:code", (req, res) => {
   const code = req.params.code;
 
-  const user = customers.find((customer) => customer.code === code);
+  const transaction = customers.find((customer) => customer.code === code);
 
-  if (!user) {
-    return res.status(404).send({ msg: "User not found" });
+  if (!transaction) {
+    return res.status(404).send({ msg: "Transaction not found not found" });
   }
 
-  return res.status(200).send(user);
+  return res.status(200).send(transaction);
 });
 
 module.exports = route;
