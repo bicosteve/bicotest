@@ -15,7 +15,7 @@ route.get("/withdrawals", (req, res) => {
       withdrawals.push(customer);
     }
   }
-  return res.send({
+  return res.status(200).send({
     msg: `There are ${withdrawals.length} failed withdrawal transactions`,
     data: withdrawals,
   });
@@ -28,10 +28,10 @@ route.get("/withdrawals/number/:number", async (req, res) => {
   const user = await customers.find((customer) => customer.phoneNumber === number);
 
   if (!user) {
-    return res.send({ msg: "User not found" });
+    return res.status(404).send({ msg: "User not found" });
   }
 
-  return res.send(user);
+  return res.status(200).send(user);
 });
 
 //GETTING SPECIFIC WITHDRAWAL WITH TRANSACTION CODE
@@ -41,10 +41,10 @@ route.get("/withdrawals/code/:code", async (req, res) => {
   const user = await customers.find((customer) => customer.code === code);
 
   if (!user) {
-    return res.send({ msg: "User not found" });
+    return res.status(404).send({ msg: "User not found" });
   }
 
-  return res.send(user);
+  return res.status(200).send(user);
 });
 
 module.exports = route;

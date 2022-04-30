@@ -15,7 +15,7 @@ route.get("/deposits", (req, res) => {
       deposits.push(customer);
     }
   }
-  return res.send({
+  return res.status(200).send({
     msg: `There are ${deposits.length} failed deposit transactions`,
     data: deposits,
   });
@@ -28,10 +28,10 @@ route.get("/deposits/number/:number", (req, res) => {
   const user = customers.find((customer) => customer.phoneNumber === number);
 
   if (!user) {
-    return res.send({ msg: "User not found" });
+    return res.status(404).send({ msg: "User not found" });
   }
 
-  return res.send(user);
+  return res.status(200).send(user);
 });
 
 //GET SPECIFIC FAILED DEPOSIT WITH TRANSACTION CODE
@@ -41,10 +41,10 @@ route.get("/deposits/code/:code", (req, res) => {
   const user = customers.find((customer) => customer.code === code);
 
   if (!user) {
-    return res.send({ msg: "User not found" });
+    return res.status(404).send({ msg: "User not found" });
   }
 
-  return res.send(user);
+  return res.status(200).send(user);
 });
 
 module.exports = route;
